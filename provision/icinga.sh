@@ -13,7 +13,7 @@ cp /vagrant/config/hosts/icinga.hosts /etc/hosts
 rpm -Uvh https://dl.fedoraproject.org/pub/epel/epel-release-latest-6.noarch.rpm
 yum install -y bash-completion git vim tree yum-utils
 
-# Install Icinga2.
+# Install Icinga 2.
 yum install -y https://packages.icinga.com/epel/6/release/noarch/icinga-rpm-release-6-1.el6.noarch.rpm
 yum install -y icinga2 nagios-plugins-all vim-icinga2
 service icinga2 start
@@ -26,6 +26,7 @@ yum-config-manager --enable mysql57-community-dmr
 yum install -y mysql-community-server-5.7.13
 
 MYSQL_ROOT_PASSWORD=password
+MYSQL_ICINGA_PASSWORD=icinga
 MYSQL_LOG_DIR=/var/log/mysql
 
 # Configure MySQL 5.7.
@@ -63,3 +64,19 @@ service mysqld restart
 
 # Install IDO modules for MySQL.
 yum install -y icinga2-ido-mysql
+
+# Set up MySQL database for Icinga 2.
+mysql -e "CREATE DATABASE IF NOT EXISTS icinga;"
+mysql -e "GRANT SELECT, INSERT, UPDATE, DELETE, DROP, CREATE VIEW, INDEX, EXECUTE ON icinga.* TO 'icinga'@'localhost' IDENTIFIED BY '$MYSQL_ICINGA_PASSWORD';"
+
+# Import Icinga 2 MySQL schema.
+mysql icinga < /usr/share/icinga2-ido-mysql/schema/mysql.sql
+
+
+
+
+
+# Bash aliases.
+cp /vagrant/config/bash/root.bashrc /root/.bashrc
+cp /vagrant/config/bash/vagrant.bashrc /home/vagrant/.bashrc
+chown vagrant: /home/vagrant/.bashrc
