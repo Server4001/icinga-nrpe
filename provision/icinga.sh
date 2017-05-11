@@ -1,5 +1,7 @@
 #!/bin/bash
 
+# TODO : MAKE IDEMPOTENT.
+
 # Copy hosts file.
 cp /vagrant/config/hosts/icinga.hosts /etc/hosts
 
