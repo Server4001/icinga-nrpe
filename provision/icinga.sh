@@ -21,18 +21,34 @@ mysql icinga < /usr/share/icinga2-ido-mysql/schema/mysql.sql
 # Enable external command pipe in Icinga 2.
 icinga2 feature enable command
 service icinga2 restart
-usermod -a -G icingacmd nginx
 
 # Install Icinga2 web and cli.
 yum install -y icingaweb2 icingacli
+
+# Change log permissions.
+chown nginx:nginx /var/log/php-fpm/
+chmod 0775 /var/log/php-fpm/
+chmod -R 0644 /var/log/php-fpm/*.log
+chmod 0644 /var/log/mysqld.log
+chmod -R 0644 /var/log/nginx/*.log
+
+# Configure PHP
+yum install -y php70w-ldap
+chown nginx: /var/lib/php/session /var/lib/php/wsdlcache
+cp /vagrant/config/php/php.ini /etc/php.ini
+rm /etc/php.d/json.ini
+
+# Add nginx user to Icinga 2 groups. Must RESTART nginx and PHP-FPM afterwards.
+usermod -a -G icingacmd nginx
+usermod -a -G icingaweb2 nginx
 
 # Configure nginx.
 rm /etc/nginx/conf.d/default.conf
 cp /vagrant/config/nginx/nginx.conf /etc/nginx/nginx.conf
 cp /vagrant/config/nginx/icinga.conf /etc/nginx/conf.d/icinga.conf
-service nginx reload
+service nginx restart
 
 # Configure PHP-FPM.
 rm /etc/php-fpm.d/www.conf
 cp /vagrant/config/php/icinga-fpm-pool.conf /etc/php-fpm.d/icinga.conf
-service php-fpm reload
+service php-fpm restart
