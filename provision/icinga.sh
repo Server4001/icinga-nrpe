@@ -16,6 +16,9 @@ MYSQL_ICINGA_PASSWORD=icinga
 # Set up MySQL database for Icinga 2.
 mysql -e "CREATE DATABASE IF NOT EXISTS icinga CHARACTER SET = 'utf8' COLLATE = 'utf8_general_ci';"
 mysql -e "GRANT SELECT, INSERT, UPDATE, DELETE, DROP, CREATE VIEW, INDEX, EXECUTE ON icinga.* TO 'icinga'@'localhost' IDENTIFIED BY '$MYSQL_ICINGA_PASSWORD';"
+mysql -e "CREATE DATABASE IF NOT EXISTS icingaweb CHARACTER SET = 'utf8' COLLATE = 'utf8_general_ci';"
+mysql -e "GRANT ALTER, CREATE, DELETE, DROP, INDEX, INSERT, LOCK TABLES, SELECT, UPDATE, REFERENCES, CREATE TEMPORARY TABLES, EXECUTE, CREATE VIEW, SHOW VIEW, CREATE ROUTINE, ALTER ROUTINE, EVENT, TRIGGER on icingaweb.* TO 'icinga'@'localhost';"
+mysql -e "FLUSH PRIVILEGES;"
 
 # Import Icinga 2 MySQL schema.
 mysql icinga < /usr/share/icinga2-ido-mysql/schema/mysql.sql

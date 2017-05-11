@@ -17,7 +17,12 @@
 * MySQL Icinga user:
     * Username: `icinga`
     * Password: `icinga`
-* MySQL Icinga database charset: `utf8`
+* MySQL Icinga database:
+    * Name: `icinga`
+    * Character set: `utf8`
+* MySQL Icinga Web database:
+    * Name: `icingaweb`
+    * Character set: `utf8`
 
 ### TODO
 
