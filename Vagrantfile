@@ -6,8 +6,8 @@ VAGRANTFILE_API_VERSION = "2"
 Vagrant.configure(VAGRANTFILE_API_VERSION) do |config|
 
   config.vm.define "icinga" do |icinga|
-    icinga.vm.box = "bento/centos-6.7"
-    icinga.vm.box_version = "2.2.7"
+    icinga.vm.box = "server4001/php7-centos"
+    icinga.vm.box_version = "0.3.0"
 
     icinga.vm.network :private_network, ip: "192.168.38.10"
 
