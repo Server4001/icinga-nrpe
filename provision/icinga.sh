@@ -14,7 +14,7 @@ chkconfig icinga2 on
 MYSQL_ICINGA_PASSWORD=icinga
 
 # Set up MySQL database for Icinga 2.
-mysql -e "CREATE DATABASE IF NOT EXISTS icinga;"
+mysql -e "CREATE DATABASE IF NOT EXISTS icinga CHARACTER SET = 'utf8' COLLATE = 'utf8_general_ci';"
 mysql -e "GRANT SELECT, INSERT, UPDATE, DELETE, DROP, CREATE VIEW, INDEX, EXECUTE ON icinga.* TO 'icinga'@'localhost' IDENTIFIED BY '$MYSQL_ICINGA_PASSWORD';"
 
 # Import Icinga 2 MySQL schema.
