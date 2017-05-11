@@ -72,8 +72,26 @@ mysql -e "GRANT SELECT, INSERT, UPDATE, DELETE, DROP, CREATE VIEW, INDEX, EXECUT
 # Import Icinga 2 MySQL schema.
 mysql icinga < /usr/share/icinga2-ido-mysql/schema/mysql.sql
 
+# TODO : REMOVE AFTER CONFIRMING IT HAS ALREADY BEEN ADDED (check using `icinga2 feature list`):
+# icinga2 feature enable ido-mysql
 
+# Install nginx.
+yum install -y nginx
+service nginx start
+chkconfig nginx on
 
+# Configure nginx.
+rm /etc/nginx/conf.d/default.conf /etc/nginx/conf.d/ssl.conf /etc/nginx/conf.d/virtual.conf
+cp /vagrant/config/nginx/nginx.conf /etc/nginx/nginx.conf
+service nginx reload
+
+# Enable external command pipe in Icinga 2.
+icinga2 feature enable command
+service icinga2 restart
+usermod -a -G icingacmd nginx
+
+# Install Icinga2 web and cli.
+yum install -y icingaweb2 icingacli
 
 
 # Bash aliases.
