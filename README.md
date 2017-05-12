@@ -4,6 +4,13 @@
 
 ### Setup
 
+* Add the following to your local machine's `/etc/hosts` file:
+
+        192.168.38.10 dev.icinga.loc
+        192.168.38.11 dev.icinga-web1.loc
+        192.168.38.12 dev.icinga-web2.loc
+        192.168.38.13 dev.icinga-web2.loc
+
 * `vagrant up`
 * `vagrant ssh icinga`
 * `sudo -s`
