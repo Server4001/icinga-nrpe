@@ -4,6 +4,9 @@
 
 ### Setup
 
+* `vagrant up`
+* `vagrant ssh icinga`
+* `sudo -s`
 * Run: `icingacli setup token create`
 * Copy token that is output from above command.
 * Hit `http://dev.icinga.loc/setup` in your browser.
