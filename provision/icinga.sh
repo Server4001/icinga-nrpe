@@ -29,6 +29,13 @@ if [ ! -f ${ICINGA_SCHEMA_EXISTS_FILE} ]; then
     touch ${ICINGA_SCHEMA_EXISTS_FILE}
 fi
 
+# Configure Icinga 2.
+mkdir /etc/icinga2/hosts.d
+cp /vagrant/config/icinga/ido-mysql.conf /etc/icinga2/features-available/ido-mysql.conf
+cp /vagrant/config/icinga/icinga2.conf /etc/icinga2/icinga2.conf
+cp /vagrant/config/icinga/hosts/*.conf /etc/icinga2/hosts.d/
+chmod 0644 /etc/icinga2/hosts.d/*.conf
+
 # Enable external command pipe in Icinga 2.
 icinga2 feature enable command
 service icinga2 restart
