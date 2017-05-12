@@ -1,5 +1,9 @@
 #!/bin/bash
 
+yum install -y ntp
+service ntpd start
+chkconfig ntpd on
+
 # Copy hosts file.
 cp /vagrant/config/hosts/web.hosts /etc/hosts
 sed -i "s/dev.web.loc/`hostname`/" /etc/hosts

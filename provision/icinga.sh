@@ -1,5 +1,8 @@
 #!/bin/bash
 
+service ntpd start
+chkconfig ntpd on
+
 # Copy hosts file.
 cp /vagrant/config/hosts/icinga.hosts /etc/hosts
 
