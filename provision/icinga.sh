@@ -30,17 +30,18 @@ if [ ! -f ${ICINGA_SCHEMA_EXISTS_FILE} ]; then
 fi
 
 # Configure Icinga 2.
-mkdir -p /etc/icinga2/host.groups.d /etc/icinga2/hosts.d
+mkdir -p /etc/icinga2/host.groups.d /etc/icinga2/hosts.d /etc/icinga2/commands.d
 
 cp /vagrant/config/icinga/ido-mysql.conf /etc/icinga2/features-available/ido-mysql.conf
 cp /vagrant/config/icinga/icinga2.conf /etc/icinga2/icinga2.conf
 
-rm -rf /etc/icinga2/host.groups.d/*.conf /etc/icinga2/hosts.d/*.conf
+rm -rf /etc/icinga2/host.groups.d/*.conf /etc/icinga2/hosts.d/*.conf /etc/icinga2/commands.d/*.conf
 cp /vagrant/config/icinga/host-groups/*.conf /etc/icinga2/host.groups.d/
 cp /vagrant/config/icinga/hosts/*.conf /etc/icinga2/hosts.d/
+cp /vagrant/config/icinga/commands/*.conf /etc/icinga2/commands.d/
 
-chown -R icinga:icinga /etc/icinga2/host.groups.d /etc/icinga2/hosts.d
-chmod 0640 /etc/icinga2/host.groups.d/*.conf /etc/icinga2/hosts.d/*.conf
+chown -R icinga:icinga /etc/icinga2/host.groups.d /etc/icinga2/hosts.d /etc/icinga2/commands.d
+chmod 0640 /etc/icinga2/host.groups.d/*.conf /etc/icinga2/hosts.d/*.conf /etc/icinga2/commands.d/*.conf
 
 service icinga2 reload
 
