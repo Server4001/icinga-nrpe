@@ -35,7 +35,8 @@ cp /vagrant/config/icinga/ido-mysql.conf /etc/icinga2/features-available/ido-mys
 cp /vagrant/config/icinga/icinga2.conf /etc/icinga2/icinga2.conf
 cp /vagrant/config/icinga/host-groups/*.conf /etc/icinga2/host.groups.d/
 cp /vagrant/config/icinga/hosts/*.conf /etc/icinga2/hosts.d/
-chmod 0644 /etc/icinga2/hosts.d/*.conf
+chown -R icinga:icinga /etc/icinga2/host.groups.d /etc/icinga2/hosts.d
+chmod 0640 /etc/icinga2/host.groups.d/*.conf /etc/icinga2/hosts.d/*.conf
 
 # Enable external command pipe in Icinga 2.
 icinga2 feature enable command
