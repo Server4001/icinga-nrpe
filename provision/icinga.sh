@@ -35,15 +35,22 @@ mkdir -p /etc/icinga2/host.groups.d /etc/icinga2/hosts.d
 cp /vagrant/config/icinga/ido-mysql.conf /etc/icinga2/features-available/ido-mysql.conf
 cp /vagrant/config/icinga/icinga2.conf /etc/icinga2/icinga2.conf
 
+rm -rf /etc/icinga2/host.groups.d/*.conf /etc/icinga2/hosts.d/*.conf
 cp /vagrant/config/icinga/host-groups/*.conf /etc/icinga2/host.groups.d/
 cp /vagrant/config/icinga/hosts/*.conf /etc/icinga2/hosts.d/
 
 chown -R icinga:icinga /etc/icinga2/host.groups.d /etc/icinga2/hosts.d
 chmod 0640 /etc/icinga2/host.groups.d/*.conf /etc/icinga2/hosts.d/*.conf
 
-# Enable external command pipe in Icinga 2.
-icinga2 feature enable command
-service icinga2 restart
+service icinga2 reload
+
+# Check if command pipe feature is enabled in Icinga 2.
+ICINGA_COMMAND_FEATURE=$(icinga2 feature list | grep Enabled | grep command | wc -l)
+if [ ${ICINGA_COMMAND_FEATURE} -lt 1 ]; then
+    # Enable external command pipe in Icinga 2.
+    icinga2 feature enable command
+    service icinga2 restart
+fi
 
 # Install Icinga2 web and cli.
 yum install -y icingaweb2 icingacli
