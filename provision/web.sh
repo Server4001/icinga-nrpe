@@ -24,3 +24,9 @@ cp /vagrant/config/nrpe/nrpe.cfg /etc/nagios/nrpe.cfg
 # Start NRPE.
 service nrpe start
 chkconfig nrpe on
+
+# Add NRPE commands.
+cp /vagrant/config/nrpe/commands/*.cfg /etc/nrpe.d/
+chmod 0644 /etc/nrpe.d/*.cfg
+
+service nrpe restart

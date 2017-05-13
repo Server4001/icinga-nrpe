@@ -8,7 +8,7 @@ cp /vagrant/config/hosts/icinga.hosts /etc/hosts
 
 # Install Icinga 2.
 yum install -y https://packages.icinga.com/epel/6/release/noarch/icinga-rpm-release-6-1.el6.noarch.rpm
-yum install -y icinga2 nagios-plugins-all vim-icinga2 icinga2-ido-mysql
+yum install -y icinga2 nagios-plugins-all nagios-plugins-nrpe vim-icinga2 icinga2-ido-mysql
 service icinga2 start
 chkconfig icinga2 on
 
@@ -30,11 +30,14 @@ if [ ! -f ${ICINGA_SCHEMA_EXISTS_FILE} ]; then
 fi
 
 # Configure Icinga 2.
-mkdir /etc/icinga2/host.groups.d /etc/icinga2/hosts.d
+mkdir -p /etc/icinga2/host.groups.d /etc/icinga2/hosts.d
+
 cp /vagrant/config/icinga/ido-mysql.conf /etc/icinga2/features-available/ido-mysql.conf
 cp /vagrant/config/icinga/icinga2.conf /etc/icinga2/icinga2.conf
+
 cp /vagrant/config/icinga/host-groups/*.conf /etc/icinga2/host.groups.d/
 cp /vagrant/config/icinga/hosts/*.conf /etc/icinga2/hosts.d/
+
 chown -R icinga:icinga /etc/icinga2/host.groups.d /etc/icinga2/hosts.d
 chmod 0640 /etc/icinga2/host.groups.d/*.conf /etc/icinga2/hosts.d/*.conf
 
