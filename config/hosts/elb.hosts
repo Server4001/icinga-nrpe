@@ -1,8 +1,7 @@
-127.0.0.1	dev.icinga.loc
+127.0.0.1	dev.icinga-elb.loc
 127.0.0.1   localhost localhost.localdomain localhost4 localhost4.localdomain4
 ::1         localhost localhost.localdomain localhost6 localhost6.localdomain6
 
 192.168.38.11 dev.icinga-web1.loc
 192.168.38.12 dev.icinga-web2.loc
 192.168.38.13 dev.icinga-web3.loc
-192.168.38.14 dev.icinga-elb.loc
