@@ -1,5 +1,6 @@
 #!/bin/bash
 
+yum install -y ntp
 service ntpd start
 chkconfig ntpd on
 
@@ -90,3 +91,10 @@ service nginx restart
 rm -f /etc/php-fpm.d/www.conf
 cp /vagrant/config/php/icinga-fpm-pool.conf /etc/php-fpm.d/icinga.conf
 service php-fpm restart
+
+if [ ! -f /etc/icinga2/features-enabled/api.conf ]; then
+    # Install the Icinga 2 API.
+    icinga2 api setup
+    cp /vagrant/config/icinga/api-users.conf /etc/icinga2/conf.d/api-users.conf
+    service icinga2 restart
+fi

@@ -82,4 +82,5 @@
 * [Icinga 2 Getting Started](https://docs.icinga.com/icinga2/latest/doc/module/icinga2/toc#!/icinga2/latest/doc/module/icinga2/chapter/getting-started)
 * [Icinga Web 2 Installation](https://github.com/Icinga/icingaweb2/blob/master/doc/02-Installation.md)
 * [Icinga 2 Addons](https://docs.icinga.com/icinga2/latest/doc/module/icinga2/chapter/addons#addons)
+* [Icinga 2 API](https://docs.icinga.com/icinga2/latest/doc/module/icinga2/chapter/icinga2-api)
 
