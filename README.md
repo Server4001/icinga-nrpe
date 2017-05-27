@@ -10,14 +10,63 @@
         192.168.38.11 dev.icinga-web1.loc
         192.168.38.12 dev.icinga-web2.loc
         192.168.38.13 dev.icinga-web2.loc
+        192.168.38.14 dev.icinga-elb.loc
 
 * `vagrant up`
 * `vagrant ssh icinga`
 * `sudo -s`
-* Run: `icingacli setup token create`
+* `icingacli setup token create`
 * Copy token that is output from above command.
 * Hit `http://dev.icinga.loc/setup` in your browser.
-* Put token into text-box on web page.
+* Put token into "Setup Token" text-box on web page and click "Next" button.
+* Complete the setup process.
+    * Authentication Type: Database
+    * Database Resource:
+        * Resource Name: `icingaweb_db`
+        * Database Type: `MySQL`
+        * Host: `localhost`
+        * Port: `3306`
+        * Database Name: `icingaweb`
+        * Username: `icinga`
+        * Password: `icinga`
+        * Character Set: `utf8`
+        * Persistent: No
+        * Use SSL: No
+    * Authentication Backend:
+        * Backend Name: `icingaweb2`
+    * Administration:
+        * Username: `someusername`
+        * Password: `password`
+    * Application Configuration:
+        * Show Stacktraces: Yes
+        * User Preference Storage Type: `Database`
+        * Logging Type: `Syslog`
+        * Logging Level: `Error`
+        * Application Prefix: `icingaweb2`
+        * Facility: user
+    * Monitoring Backend:
+        * Backend Name: `icinga`
+        * Backend Type: `IDO`
+    * Monitoring IDO Resource:
+        * Resource Name: `icinga_ido`
+        * Database Type: `MySQL`
+        * Host: `localhost`
+        * Port: `3306`
+        * Database Name: `icinga`
+        * Username: `icinga`
+        * Password: `icinga`
+        * Character Set: `utf8`
+        * Persistent: No
+        * Use SSL: No
+    * Command Transport:
+        * Transport Name: `icinga2`
+        * Transport Type: `Local Command File`
+        * Command File: `/var/run/icinga2/cmd/icinga2.cmd`
+    * Monitoring Security:
+        * Protected Custom Variables: `*pw*,*pass*,community`
+* Login at: `http://dev.icinga.loc/authentication/login`
+    * Username: `someusername`
+    * Password: `password`
 
 ### Credentials/Information
 
@@ -27,18 +76,6 @@
 * MySQL Icinga user:
     * Username: `icinga`
     * Password: `icinga`
-* MySQL Icinga database:
-    * Name: `icinga`
-    * Character set: `utf8`
-* MySQL Icinga Web database:
-    * Name: `icingaweb`
-    * Character set: `utf8`
-
-### TODO
-
-* Finish settings up Icinga Web 2.
-* Install NRPE.
-* Add monitoring plugins on web servers.
 
 ### Useful links
 
